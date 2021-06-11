@@ -11,7 +11,7 @@ def predict(image_path):
     return prediction
 
 if __name__ == '__main__':
-    image_path = 'data/test/wildfire/fire.619.png'
+    image_path = 'image.png'
     prediction = predict(image_path)
     if prediction == 1:
         print('Wildfire')
