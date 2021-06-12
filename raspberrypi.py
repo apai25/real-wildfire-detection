@@ -1,7 +1,7 @@
 from cv2 import cv2
 import time
-from test import predict
 import firebase, pyrebase
+import geocoder
 
 config = {
     'apiKey': "AIzaSyBRPS032EMhcRCLckjdxdkMpX3QTPZo9X0",
@@ -16,7 +16,11 @@ config = {
 firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
-firebase_path = 'photo/image.png'
+geo = geocoder.ip('me')
+coordinates = geo.latlng
+coordinate_text = f'{coordinates[0]}, {coordinates[1]}'
+
+firebase_path = f'photo/image1.png'
 local_path = 'image.png'
 cam = cv2.VideoCapture(0)
 

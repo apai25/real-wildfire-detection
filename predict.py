@@ -12,6 +12,10 @@ def predict(image_path):
     prediction = cnn.predict(image)[0][0]
     return prediction
 
+locations = {
+    '1': '34, 34'
+}
+
 config = {
     'apiKey': "AIzaSyBRPS032EMhcRCLckjdxdkMpX3QTPZo9X0",
     'authDomain': "wildfire-detection-57811.firebaseapp.com",
@@ -25,15 +29,16 @@ config = {
 firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
+count = 1
 while True:
-    firebase_path = 'photo/image.png'
-    local_path = 'image.png'
+    firebase_path = f'photo/image{count}.png'
+    local_path = f'photo/image{count}.png'
     storage.child(firebase_path).download(local_path)
 
     prediction = predict(local_path)
     if prediction == 1:
-        print('Wildfire')
+        print(f'Wildfire at {locations[count]}')
     elif prediction == 0:
-        print('Not a wildfire')
+        print(f'Not a wildfire at {locations[count]}')
     
     time.sleep(10)
