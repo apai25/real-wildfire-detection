@@ -2,6 +2,7 @@ from tensorflow.keras.models import load_model
 import numpy as np 
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import firebase, pyrebase
+import time
 
 def predict(image_path):
     cnn = load_model('model')
@@ -20,13 +21,19 @@ config = {
     'appId': "1:63279387370:web:ae1517b1a068d6eff23d93",
     'measurementId': "G-TF5YM7L4G2",
     'databaseURL': None}
+
 firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
-if __name__ == '__main__':
-    image_path = 'input.png'
-    storage.child('photo/image.png').download('input.png')
-    prediction = predict(image_path)
+
+while True:
+    firebase_path = 'photo/image.png'
+    local_path = 'image.png'
+    storage.child(firebase_path).download(local_path)
+
+    prediction = predict(local_path)
     if prediction == 1:
         print('Wildfire')
     elif prediction == 0:
         print('Not a wildfire')
+    
+    time.sleep(10)

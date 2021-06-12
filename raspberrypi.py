@@ -1,9 +1,7 @@
 from cv2 import cv2
 import time
 from test import predict
-import firebase
-import pyrebase
-
+import firebase, pyrebase
 
 config = {
     'apiKey': "AIzaSyBRPS032EMhcRCLckjdxdkMpX3QTPZo9X0",
@@ -18,7 +16,8 @@ config = {
 firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
-image_path = 'photo/image.png'
+firebase_path = 'photo/image.png'
+local_path = 'image.png'
 cam = cv2.VideoCapture(0)
 
 while True:
@@ -27,8 +26,8 @@ while True:
         print('Error when grabbing frame')
         break
 
-    cv2.imwrite('image.png', img)
-    storage.child(image_path).put('image.png')
+    cv2.imwrite(local_path, img)
+    storage.child(firebase_path).put(local_path)
 
     time.sleep(10)
 
