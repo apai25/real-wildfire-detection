@@ -37,8 +37,8 @@ while True:
 
     prediction = predict(local_path)
     if prediction == 1:
-        print(f'Wildfire at {locations[count]}')
+        print(f'Wildfire at {locations[str(count)]}')
     elif prediction == 0:
-        print(f'Not a wildfire at {locations[count]}')
+        print(f'Not a wildfire at {locations[str(count)]}')
     
     time.sleep(10)

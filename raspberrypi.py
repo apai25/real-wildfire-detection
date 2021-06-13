@@ -15,7 +15,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
-firebase_path = f'photo/image1.png'
+firebase_path = 'photo/image1.png'
 local_path = 'image.png'
 cam = cv2.VideoCapture(0)
 
