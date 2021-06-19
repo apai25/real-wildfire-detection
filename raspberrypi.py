@@ -1,4 +1,4 @@
-from cv2 import cv2
+from picamera import PiCamera
 import time
 import firebase, pyrebase
 
@@ -17,15 +17,12 @@ storage = firebase.storage()
 
 firebase_path = 'photo/image1.png'
 local_path = 'image.png'
-cam = cv2.VideoCapture(0)
+
+camera = PiCamera()
+time.sleep(3)
 
 while True:
-    is_error, img = cam.read()
-    if not is_error:
-        print('Error when grabbing frame')
-        break
-
-    cv2.imwrite(local_path, img)
+    camera.capture(local_path)
     storage.child(firebase_path).put(local_path)
 
     time.sleep(10)
